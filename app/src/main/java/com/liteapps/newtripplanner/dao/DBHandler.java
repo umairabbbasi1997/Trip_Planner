@@ -127,10 +127,10 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     // Deleting single Trip
-    public void deleteTrip(TripModel model) {
+    public void deleteTrip(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME, PRIMARY_KEY + " = ?",
-                new String[] { String.valueOf(model.getTripId()) });
+                new String[] { String.valueOf(id) });
         db.close();
     }
 

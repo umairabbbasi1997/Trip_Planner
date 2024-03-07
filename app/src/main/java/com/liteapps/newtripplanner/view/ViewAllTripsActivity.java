@@ -57,7 +57,9 @@ public class ViewAllTripsActivity extends AppCompatActivity implements OnClickLi
     @Override
     public void onItemDelete(int position) {
 
+        //Constants.tripList.remove(position);
+        dbHandler.deleteTrip(Constants.tripList.get(position).getTripId());
         Constants.tripList.remove(position);
-        rvTrip.getAdapter().notifyItemRemoved(position);
+        rvTrip.getAdapter().notifyDataSetChanged();
     }
 }

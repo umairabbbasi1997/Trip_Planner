@@ -72,6 +72,7 @@ public class TripAdapter
                 .setText(list.get(position).getDestination());
         viewHolder.desc
                 .setText(list.get(position).getTripDetails());
+        viewHolder.time.setText(list.get(position).getTime());
         viewHolder.date
                 .setText(list.get(position).getDate());
         viewHolder.itemView .setOnClickListener(new View.OnClickListener() {
