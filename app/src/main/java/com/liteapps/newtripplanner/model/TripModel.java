@@ -9,6 +9,10 @@ public class TripModel {
     private String tripDetails;
     private String date;
     private String time;
+    private int tripId;
+
+    public TripModel() {
+    }
 
     public TripModel(String destination, String pickupLocation, String price, String vehicleModel, String tripDetails, String date, String time) {
         this.destination = destination;
@@ -18,6 +22,14 @@ public class TripModel {
         this.tripDetails = tripDetails;
         this.date = date;
         this.time = time;
+    }
+
+    public int getTripId() {
+        return tripId;
+    }
+
+    public void setTripId(int tripId) {
+        this.tripId = tripId;
     }
 
     public String getDestination() {

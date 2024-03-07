@@ -10,12 +10,14 @@ import android.widget.ImageView;
 import com.liteapps.newtripplanner.OnClickListener;
 import com.liteapps.newtripplanner.R;
 import com.liteapps.newtripplanner.adapter.TripAdapter;
+import com.liteapps.newtripplanner.dao.DBHandler;
 import com.liteapps.newtripplanner.utils.Constants;
 
 public class ViewAllTripsActivity extends AppCompatActivity implements OnClickListener {
 
    RecyclerView rvTrip;
     ImageView btnBack;
+    private DBHandler dbHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,9 @@ public class ViewAllTripsActivity extends AppCompatActivity implements OnClickLi
 
         btnBack = findViewById(R.id.btn_back);
 
+        dbHandler = new DBHandler(this);
+
+        Constants.tripList = dbHandler.getAllTrips();
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
