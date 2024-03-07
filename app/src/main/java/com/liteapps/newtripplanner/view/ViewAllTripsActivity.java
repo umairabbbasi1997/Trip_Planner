@@ -3,6 +3,8 @@ package com.liteapps.newtripplanner.view;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,6 +21,8 @@ public class ViewAllTripsActivity extends AppCompatActivity implements OnClickLi
     ImageView btnBack;
     private DBHandler dbHandler;
 
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,14 +32,15 @@ public class ViewAllTripsActivity extends AppCompatActivity implements OnClickLi
 
         dbHandler = new DBHandler(this);
 
-        Constants.tripList = dbHandler.getAllTrips();
+        new LoadData().execute();
+
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-        setRecyclerView();
+        //setRecyclerView();
     }
 
     private void setRecyclerView() {
@@ -62,4 +67,36 @@ public class ViewAllTripsActivity extends AppCompatActivity implements OnClickLi
         Constants.tripList.remove(position);
         rvTrip.getAdapter().notifyDataSetChanged();
     }
+
+    public class LoadData extends AsyncTask<String, String, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            // display a progress dialog for good user experiance
+            progressDialog = new ProgressDialog(ViewAllTripsActivity.this);
+            progressDialog.setMessage("loading Wait");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            Constants.tripList = dbHandler.getAllTrips();
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            setRecyclerView();
+            progressDialog.dismiss();
+        }
+    }
+
 }
+
